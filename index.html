@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PM Ledger – Preventive Maintenance</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><h1>🛠️ PM Ledger</h1><p>Preventive maintenance for fixtures &amp; equipment</p></header>
+<main>
+  <section class="stats" id="stats"></section>
+  <section class="bar">
+    <input id="q" placeholder="Search ID, name, location…">
+    <select id="fType"><option value="">All types</option><option>Equipment</option><option>Fixture</option></select>
+    <select id="fStatus"><option value="">All status</option><option>Overdue</option><option>Due soon</option><option>OK</option></select>
+    <button id="add" class="primary">+ Add asset</button>
+    <button id="csv">Export CSV</button>
+    <button id="json">Backup JSON</button>
+    <label class="btn">Restore<input type="file" id="restore" accept=".json" hidden></label>
+  </section>
+  <div class="scroll"><table>
+    <thead><tr><th>ID</th><th>Name</th><th>Type</th><th>Location</th><th>Interval (days)</th><th>Last maintenance</th><th>Next due</th><th>Status</th><th></th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table></div>
+  <p id="empty" hidden>No assets yet. Click “+ Add asset”.</p>
+</main>
+
+<dialog id="dAsset"><form method="dialog" id="fAsset">
+  <h2 id="dTitle">Asset</h2>
+  <label>Asset ID<input name="id" required></label>
+  <label>Name<input name="name" required></label>
+  <label>Type<select name="type"><option>Equipment</option><option>Fixture</option></select></label>
+  <label>Location / Line<input name="location"></label>
+  <label>Maintenance interval (days)<input name="interval" type="number" min="1" required value="30"></label>
+  <label>Last maintenance date<input name="last" type="date"></label>
+  <label>Notes<textarea name="notes" rows="2"></textarea></label>
+  <menu><button type="button" data-close>Cancel</button><button class="primary">Save</button></menu>
+</form></dialog>
+
+<dialog id="dLog"><form method="dialog" id="fLog">
+  <h2 id="lTitle">Log maintenance</h2>
+  <label>Date done<input name="date" type="date" required></label>
+  <label>Done by<input name="by"></label>
+  <label>Remarks<textarea name="remarks" rows="3"></textarea></label>
+  <menu><button type="button" data-close>Cancel</button><button class="primary">Save log</button></menu>
+</form></dialog>
+
+<dialog id="dHist"><div>
+  <h2 id="hTitle">History</h2><div id="hBody"></div>
+  <menu><button data-close>Close</button></menu>
+</div></dialog>
+<script src="app.js"></script>
+</body>
+</html>
